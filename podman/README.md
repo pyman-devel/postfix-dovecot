@@ -132,3 +132,15 @@ podman pod create \
 ]$ systemctl --user status pod-rootless_pod.service
 ```
 
+---
+
+## 8. 참고
+
+Podman Pod을 systemd 서비스로 등록하는 방법은 저장소 내에 포함된 다음 파일들을 참고하세요:
+
+- `rootless_pod.sh`: Pod 및 컨테이너를 생성하고 시작하는 스크립트
+- `pod-rootless_pod.service`: Podman에서 생성한 systemd 서비스 예시 파일
+
+이 두 파일은 실제로 동작 가능한 예시이며, 필요에 따라 수정하여 사용할 수 있습니다.  
+특히, `pod-rootless_pod.service`는 `podman generate systemd` 명령으로 생성된 원본을 기반으로 하며,  
+사용자의 환경에 맞게 systemd에 등록하여 자동 실행되도록 설정할 수 있습니다.
