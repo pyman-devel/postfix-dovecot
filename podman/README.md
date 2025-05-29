@@ -75,7 +75,7 @@ machinectl shell pod_user@
 
 ## 6. Podman Pod 생성 스크립트 준비
 
-### 작업 디렉토리 생성 및 스크립트 작성
+### 스크립트 작성
 
 ```bash
 vi rootless_pod.sh
