@@ -124,13 +124,17 @@ chmod +x rootless_pod.sh
 
 ---
 
-## 7. 다음 단계 (선택 사항)
+## 7. systemd 등록
 
-추가적으로 다음과 같은 구성을 고려할 수 있습니다:
-
-- systemd --user 단위 서비스 유닛 등록  
-- persistent storage 연동 (볼륨 마운트 등)  
-- 이미지 자동 갱신 및 Healthcheck 설정  
-- podman generate systemd를 통한 서비스 자동화
+```bash
+podman generate systemd --name rootless_pod --files --new
+mkdir -p ~/.config/systemd/user
+cp pod-rootless_pod.service ~/.config/systemd/user/
+cd ~/.config/systemd/user/
+systemctl --user daemon-reexec
+systemctl --user daemon-reload
+systemctl --user enable --now pod-rootless_pod.service
+systemctl --user status pod-rootless_pod.service
+```
 
 ---
