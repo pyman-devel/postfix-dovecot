@@ -132,4 +132,3 @@ podman pod create \
 ]$ systemctl --user status pod-rootless_pod.service
 ```
 
----
