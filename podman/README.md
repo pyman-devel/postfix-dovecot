@@ -124,18 +124,7 @@ chmod +x rootless_pod.sh
 
 ---
 
-## 7. Pod 내부에 컨테이너 배치 예시
-
-```bash
-podman run --rm -dt --pod rootless_pod alpine sleep infinity
-```
-
-- Pod 내부에 Alpine 컨테이너 실행  
-- sleep infinity로 컨테이너가 종료되지 않도록 유지
-
----
-
-## 8. 다음 단계 (선택 사항)
+## 7. 다음 단계 (선택 사항)
 
 추가적으로 다음과 같은 구성을 고려할 수 있습니다:
 
@@ -145,8 +134,3 @@ podman run --rm -dt --pod rootless_pod alpine sleep infinity
 - podman generate systemd를 통한 서비스 자동화
 
 ---
-
-## 라이선스
-
-MIT License
-
