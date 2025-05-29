@@ -78,14 +78,7 @@ machinectl shell pod_user@
 ### 작업 디렉토리 생성 및 스크립트 작성
 
 ```bash
-mkdir build
-cd build
 vi rootless_pod.sh
-```
-
-### 스크립트 예시 (rootless_pod.sh)
-
-```bash
 #!/bin/bash
 
 HOSTNAME_VAR=$(hostname)
@@ -107,9 +100,7 @@ podman pod create \
   -p 11332:11332 \
   -p 11334:11334 \
   -p 3306:3306
-
 ```
-
 - --name: Pod 이름 지정  
 - --hostname: Pod 내부 호스트 이름  
 - --security-opt no-new-privileges: 권한 상승 방지  
