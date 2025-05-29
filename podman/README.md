@@ -8,7 +8,7 @@
 ## 1. Podman 및 관련 패키지 설치
 
 ```bash
-dnf -y install podman systemd-container
+]# dnf -y install podman systemd-container
 ```
 
 - podman: Docker 호환 컨테이너 엔진  
@@ -19,8 +19,8 @@ dnf -y install podman systemd-container
 ## 2. 일반 사용자 생성 및 패스워드 제거
 
 ```bash
-useradd -m pod_user
-passwd -d pod_user
+]# useradd -m pod_user
+]# passwd -d pod_user
 ```
 
 - `-m`: 홈 디렉토리 생성  
@@ -31,7 +31,7 @@ passwd -d pod_user
 ## 3. 커널 파라미터 설정
 
 ```bash
-vi /etc/sysctl.conf
+]# vi /etc/sysctl.conf
 ```
 
 다음 내용 추가:
@@ -44,7 +44,7 @@ net.ipv4.ip_unprivileged_port_start = 0
 변경 적용:
 
 ```bash
-sysctl -p
+]# sysctl -p
 ```
 
 - user.max_user_namespaces: 사용자당 user namespace 수 제한  
@@ -55,7 +55,7 @@ sysctl -p
 ## 4. 로그인 유지 설정 (Linger)
 
 ```bash
-loginctl enable-linger pod_user
+]# loginctl enable-linger pod_user
 ```
 
 - 해당 사용자의 systemd 인스턴스를 로그아웃 이후에도 백그라운드에서 유지 가능
@@ -65,7 +65,7 @@ loginctl enable-linger pod_user
 ## 5. 사용자 환경 진입
 
 ```bash
-machinectl shell pod_user@
+]# machinectl shell pod_user@
 ```
 
 - pod_user@는 rootless 사용자 세션을 의미  
@@ -78,7 +78,11 @@ machinectl shell pod_user@
 ### 스크립트 작성
 
 ```bash
-vi rootless_pod.sh
+]$ vi rootless_pod.sh
+```
+
+다음 내용 추가:
+```conf
 #!/bin/bash
 
 HOSTNAME_VAR=$(hostname)
@@ -109,8 +113,8 @@ podman pod create \
 ### 실행 권한 부여 및 실행
 
 ```bash
-chmod +x rootless_pod.sh
-./rootless_pod.sh
+]$ chmod +x rootless_pod.sh
+]$ ./rootless_pod.sh
 ```
 
 ---
@@ -118,14 +122,14 @@ chmod +x rootless_pod.sh
 ## 7. systemd 등록
 
 ```bash
-podman generate systemd --name rootless_pod --files --new
-mkdir -p ~/.config/systemd/user
-cp pod-rootless_pod.service ~/.config/systemd/user/
-cd ~/.config/systemd/user/
-systemctl --user daemon-reexec
-systemctl --user daemon-reload
-systemctl --user enable --now pod-rootless_pod.service
-systemctl --user status pod-rootless_pod.service
+]$ podman generate systemd --name rootless_pod --files --new
+]$ mkdir -p ~/.config/systemd/user
+]$ cp pod-rootless_pod.service ~/.config/systemd/user/
+]$ cd ~/.config/systemd/user/
+]$ systemctl --user daemon-reexec
+]$ systemctl --user daemon-reload
+]$ systemctl --user enable --now pod-rootless_pod.service
+]$ systemctl --user status pod-rootless_pod.service
 ```
 
 ---
